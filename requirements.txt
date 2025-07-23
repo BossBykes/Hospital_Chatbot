@@ -1,6 +1,1 @@
 Flask>=2.2
-gunicorn            # for production WSGI server
-numpy
-scikit-learn        # for any quick ML utilities
-# (We’ll add spaCy or transformers later)
-
