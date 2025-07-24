@@ -61,6 +61,16 @@
       "responses": []
     },
     {
+      "tag": "greeting",
+      "patterns": ["hello", "hi", "hey", "good morning", "good afternoon"],
+      "responses": ["Hello! Welcome to our hospital chatbot—how can I assist you today?"]
+    },
+    {
+      "tag": "fallback",
+      "patterns": [],
+      "responses": ["Sorry, I didn't understand that. Could you rephrase?"]
+    },
+    {
       "tag": "goodbye",
       "patterns": ["bye","goodbye","see you"],
       "responses": ["Goodbye! Let me know if you need anything else."]

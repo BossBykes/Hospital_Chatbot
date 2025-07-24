@@ -7,12 +7,29 @@
   <title>Hospital Visitor Chatbot</title>
 </head>
 <body>
-  <div class="chat-container">
-    <div id="chat-log" class="chat-log"></div>
-    <div class="chat-input">
-      <input id="msg-input" type="text" placeholder="Type your message…" />
-      <button id="send-btn">Send</button>
-    </div>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Hospital Visitor Assistant</h2>
+        <p>24/7 Virtual Guide</p>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><button data-intent="directions_parking_info">Parking Info</button></li>
+          <li><button data-intent="visiting_hours">Visiting Hours</button></li>
+          <li><button data-intent="faq_billing_insurance_cafeteria">FAQs</button></li>
+          <li><button data-intent="emergency_contact">Emergency Contacts</button></li>
+          <li><button data-intent="appointment_booking">Book Appointment</button></li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="chat-container">
+      <div class="chat-log" id="chat-log"></div>
+      <div class="chat-input">
+        <input id="msg-input" type="text" placeholder="Type your message…" autofocus />
+        <button id="send-btn">Send</button>
+      </div>
+    </main>
   </div>
   <script src="/static/chat.js"></script>
 </body>
