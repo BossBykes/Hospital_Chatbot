@@ -41,6 +41,8 @@ and service hooks for dynamic answers like parking info and appointments.
 ├── Dockerfile
 └── requirements.txt
 
+```
+
 ## Requirements
 
 - Python 3.10+ recommended
@@ -122,4 +124,5 @@ Example:
 - Move locale-dependent constants into a config file
 - Add logging and feedback collection
 - Add more realistic service integrations
+
 
