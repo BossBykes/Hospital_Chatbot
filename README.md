@@ -17,23 +17,26 @@ and service hooks for dynamic answers like parking info and appointments.
 
 ## Project Structure
 
+```text
 .
-├── app
-│   ├── nlu
+├── app/
+│   ├── nlu/
+│   │   ├── __init__.py
 │   │   ├── intents.json          # Intent patterns + responses (core knowledge)
 │   │   └── model.py              # Intent classifier
-│   ├── services
+│   ├── services/
+│   │   ├── __init__.py
 │   │   ├── appointment_service.py
 │   │   └── parking_service.py
-│   ├── static
+│   ├── static/
 │   │   ├── chat.js               # Frontend logic (calls /api/get)
 │   │   └── style.css             # Styling
-│   ├── templates
+│   ├── templates/
 │   │   └── index.html            # UI
 │   ├── __init__.py               # create_app()
-│   ├── __main__.py               # python -m app entrypoint
+│   ├── __main__.py               # Entry point: python -m app
 │   └── routes.py                 # Flask routes + intent routing
-├── tests
+├── tests/
 │   └── test_routes.py
 ├── Dockerfile
 └── requirements.txt
@@ -119,3 +122,4 @@ Example:
 - Move locale-dependent constants into a config file
 - Add logging and feedback collection
 - Add more realistic service integrations
+
