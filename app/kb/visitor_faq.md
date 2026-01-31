@@ -1,6 +1,6 @@
 # Visiting hours
 General visiting hours for the hospital are 8 AM to 8 PM daily.
-ICU has separate visiting hours listed below.
+ICU visiting hours are different.
 
 # ICU visiting hours
 ICU visiting hours are 10 AM to 6 PM.
