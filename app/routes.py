@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, request, jsonify, render_template
 from .nlu.model import IntentClassifier
 from .services.parking_service import get_parking_info
@@ -55,7 +56,12 @@ def get_response():
 
         if hits and hits[0].score >= 0.45:
             best = hits[0]
-            answer = f"{best.excerpt}\n\nSource: {best.source} - {best.title}"
+            show_sources = os.getenv("SHOW_SOURCES", "0") == "1"
+
+            answer = best.excerpt
+            if show_sources:
+                answer += f"\n\nSource: {best.source} - {best.title}"
+
             return jsonify({'response': answer})
 
     # 3) Otherwise use intent responses (good for greetings/short interactions)
