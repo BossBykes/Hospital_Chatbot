@@ -36,6 +36,10 @@ def test_appointment_booking_flow(client):
 
     res = client.post('/api/get', json={'message': 'morning'})
     data = res.get_json()
+    assert 'name' in data['response'].lower() or 'optional' in data['response'].lower()
+
+    res = client.post('/api/get', json={'message': 'skip'})
+    data = res.get_json()
     assert 'confirm' in data['response'].lower() or 'yes' in data['response'].lower()
 
     res = client.post('/api/get', json={'message': 'yes'})
@@ -64,6 +68,10 @@ def test_appointment_cancel_flow(client):
     assert 'time' in data['response'].lower()
 
     res = client.post('/api/get', json={'message': 'morning'})
+    data = res.get_json()
+    assert 'name' in data['response'].lower() or 'optional' in data['response'].lower()
+
+    res = client.post('/api/get', json={'message': 'skip'})
     data = res.get_json()
     assert 'confirm' in data['response'].lower() or 'yes' in data['response'].lower()
 

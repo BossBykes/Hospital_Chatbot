@@ -61,7 +61,7 @@ def get_response():
         or "next appointment" in msg_lower
         or "appointment details" in msg_lower
     )
-    if appointment_related:
+    if state.get("booking") or appointment_related:
         reply, updated_state, _done = handle_appointment_message(user_msg, state)
         save_state(sid, updated_state)
         return respond({'response': reply})
