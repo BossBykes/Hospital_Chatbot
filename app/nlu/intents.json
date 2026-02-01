@@ -66,6 +66,42 @@
       "responses": ["Hello! Welcome to our hospital chatbot—how can I assist you today?"]
     },
     {
+      "tag": "thanks",
+      "patterns": ["thanks", "thank you", "thx", "appreciate it"],
+      "responses": [
+        "You're welcome!",
+        "Happy to help.",
+        "Anytime—let me know if you need anything else."
+      ]
+    },
+    {
+      "tag": "acknowledgement",
+      "patterns": ["ok", "okay", "great", "nice", "cool"],
+      "responses": [
+        "Got it.",
+        "Sounds good.",
+        "Great—what would you like to do next?"
+      ]
+    },
+    {
+      "tag": "apology",
+      "patterns": ["sorry", "my bad"],
+      "responses": [
+        "No worries at all.",
+        "You're all good.",
+        "It's okay—how can I help?"
+      ]
+    },
+    {
+      "tag": "frustration",
+      "patterns": ["this is not working", "useless", "annoying", "stupid"],
+      "responses": [
+        "Sorry about that—let me try to help.",
+        "I know that's frustrating. Tell me what you need and I'll fix it.",
+        "Thanks for your patience. What can I do for you right now?"
+      ]
+    },
+    {
       "tag": "fallback",
       "patterns": [],
       "responses": ["Sorry, I didn't understand that. Could you rephrase?"]
