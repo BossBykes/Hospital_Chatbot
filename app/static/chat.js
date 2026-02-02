@@ -2,11 +2,26 @@ const sendBtn = document.getElementById('send-btn');
 const msgInput = document.getElementById('msg-input');
 const chatLog = document.getElementById('chat-log');
 
-function appendMessage(text, cls) {
+function appendMessage(text, cls, suggestions = null) {
   const div = document.createElement('div');
   div.className = `message ${cls}`;
   div.innerText = text;
   chatLog.appendChild(div);
+
+  if (Array.isArray(suggestions) && suggestions.length) {
+    const chips = document.createElement('div');
+    chips.className = 'suggestions';
+    suggestions.forEach(label => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'suggestion-chip';
+      btn.innerText = label;
+      btn.addEventListener('click', () => sendMessage(label));
+      chips.appendChild(btn);
+    });
+    chatLog.appendChild(chips);
+  }
+
   chatLog.scrollTop = chatLog.scrollHeight;
 }
 
@@ -28,7 +43,7 @@ async function sendMessage(messageOverride = null) {
 
   try {
     const data = await postMessage(msg);
-    appendMessage(data.response, 'bot');
+    appendMessage(data.response, 'bot', data.suggestions || null);
   } catch (err) {
     appendMessage("Sorry - something went wrong on the server. Please try again.", 'bot');
   }

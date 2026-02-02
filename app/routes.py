@@ -87,10 +87,20 @@ def get_response():
         return respond({'response': classifier.get_response(intent)})
 
     # 4) Clarify or fallback
+    suggestions = [
+        "Visiting hours",
+        "ICU hours",
+        "Billing",
+        "Insurance",
+        "Parking",
+        "Appointments",
+    ]
+
     clarification = clarify(user_msg)
     if clarification:
-        return respond({'response': clarification})
+        return respond({'response': clarification, 'suggestions': suggestions})
 
     return respond({
-        'response': "Sorry, I'm not sure about that. You can ask about visiting hours, ICU hours, billing, insurance, cafeteria, parking, or appointments."
+        'response': "Not sure. Choose one: Visiting hours / ICU hours / Billing / Parking / Appointments",
+        'suggestions': suggestions,
     })
