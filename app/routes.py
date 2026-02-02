@@ -4,6 +4,7 @@ from .nlu.model import IntentClassifier
 from .services.parking_service import get_parking_info
 from .services.appointment_service import handle_appointment_message
 from .services.session_store import get_session_id, set_session_cookie, get_state, save_state
+from .services.clarifier import clarify
 from .kb.retriever import KnowledgeBase
 
 chatbot_bp = Blueprint('chatbot', __name__)
@@ -85,7 +86,11 @@ def get_response():
     if intent != 'fallback' and conf >= 0.6:
         return respond({'response': classifier.get_response(intent)})
 
-    # 4) Final fallback
+    # 4) Clarify or fallback
+    clarification = clarify(user_msg)
+    if clarification:
+        return respond({'response': clarification})
+
     return respond({
         'response': "Sorry, I'm not sure about that. You can ask about visiting hours, ICU hours, billing, insurance, cafeteria, parking, or appointments."
     })
