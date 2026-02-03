@@ -150,3 +150,7 @@ class KnowledgeBase:
 
         hits.sort(key=lambda h: h.score, reverse=True)
         return hits[:top_k]
+
+    def search_with_threshold(self, query: str, top_k: int = 3, min_score: float = 0.0) -> List[KBHit]:
+        hits = self.search(query, top_k=top_k)
+        return [h for h in hits if h.score >= min_score]

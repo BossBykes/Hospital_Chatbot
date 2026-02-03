@@ -6,6 +6,7 @@ from .services.appointment_service import handle_appointment_message
 from .services.session_store import get_session_id, set_session_cookie, get_state, save_state
 from .services.clarifier import clarify
 from .kb.retriever import KnowledgeBase
+from .kb.answer_builder import build_kb_answer
 
 chatbot_bp = Blueprint('chatbot', __name__)
 classifier = IntentClassifier()
@@ -70,17 +71,17 @@ def get_response():
     # 2) If this looks like an "information query", prefer KB retrieval
     looks_like_info_query = any(k in msg_lower for k in KB_KEYWORDS)
     if intent in KB_FIRST_INTENTS or looks_like_info_query or intent == "fallback" or conf < 0.7:
-        hits = kb.search(user_msg, top_k=2)
+        hits = kb.search(user_msg, top_k=3)
 
         if hits and hits[0].score >= 0.45:
-            best = hits[0]
             show_sources = os.getenv("SHOW_SOURCES", "0") == "1"
-
-            answer = best.excerpt
-            if show_sources:
-                answer += f"\n\nSource: {best.source} - {best.title}"
-
-            return respond({'response': answer})
+            built = build_kb_answer(user_msg, hits)
+            payload = {'response': built.get("text", "").strip()}
+            if built.get("suggestions"):
+                payload["suggestions"] = built["suggestions"]
+            if show_sources and built.get("sources"):
+                payload["sources"] = built["sources"]
+            return respond(payload)
 
     # 3) Otherwise use intent responses (good for greetings/short interactions)
     if intent != 'fallback' and conf >= 0.6:
