@@ -20,6 +20,26 @@ def test_api_get(client):
     assert 'response' in data
 
 
+def test_kb_visiting_and_icu_and_billing(client):
+    res = client.post('/api/get', json={'message': 'visiting'})
+    data = res.get_json()
+    resp = data['response'].lower()
+    assert 'general visiting hours' in resp or 'general visiting hours or icu visiting hours' in resp
+    assert 'sources' not in data
+
+    res = client.post('/api/get', json={'message': 'icu visiting'})
+    data = res.get_json()
+    resp = data['response'].lower()
+    assert 'icu visiting hours' in resp
+    assert 'sources' not in data
+
+    res = client.post('/api/get', json={'message': 'how do i pay my bill'})
+    data = res.get_json()
+    resp = data['response'].lower()
+    assert 'pay' in resp or 'bill' in resp
+    assert 'sources' not in data
+
+
 def test_appointment_booking_flow(client):
     res = client.post('/api/get', json={'message': 'can i book an appointment'})
     assert res.status_code == 200
