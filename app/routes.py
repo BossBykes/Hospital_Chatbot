@@ -1,5 +1,4 @@
-import os
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, request, jsonify, render_template, current_app
 from .nlu.model import IntentClassifier
 from .services.parking_service import get_parking_info
 from .services.appointment_service import handle_appointment_message
@@ -74,7 +73,7 @@ def get_response():
         hits = kb.search(user_msg, top_k=3)
 
         if hits and hits[0].score >= 0.45:
-            show_sources = os.getenv("SHOW_SOURCES", "0") == "1"
+            show_sources = str(current_app.config.get("SHOW_SOURCES", "0")) == "1"
             built = build_kb_answer(user_msg, hits)
             payload = {'response': built.get("text", "").strip()}
             if built.get("suggestions"):
